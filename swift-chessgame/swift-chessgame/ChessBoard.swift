@@ -8,27 +8,30 @@
 import Foundation
 
 final class ChessBoard {
-    private var board: [[Character]] = []
+    private var board: [[String]] = []
+    private var turn: Color = .white
     
     init() {
         refreshBoard()
     }
     
     func refreshBoard() {
-        board = [[Character]](repeating: [Character](repeating: ".", count: 9), count: 10)
-        board[0] = [" ", "A", "B", "C", "D", "E" ,"F", "G", "H"]
-        board[9] = [" ", "A", "B", "C", "D", "E" ,"F", "G", "H"]
-
-        for i in 1...8 {
-            board[i][0] = Character(String(i))
-        }
-
+        board = [[String]](repeating: [String](repeating: ".", count: 8), count: 8)
+        board[0] = [Luke(color: .black).value, Knight(color: .black).value, Bishop(color: .black).value, ".", Queen(color: .black).value, Bishop(color: .black).value, Knight(color: .black).value, Luke(color: .black).value]
+        board[1] = [String](repeating: Pawn(color: .black).value, count: 8)
+        
+        board[6] = [String](repeating: Pawn(color: .white).value, count: 8)
+        board[7] = [Luke(color: .white).value, Knight(color: .white).value, Bishop(color: .white).value, ".", Queen(color: .white).value, Bishop(color: .white).value, Knight(color: .white).value, Luke(color: .white).value]
     }
     
     func display() -> [String] {
-        return board.compactMap({
-            String($0)
-        })
+        var displayBoard: [String] = []
+        displayBoard.append(" ABCDEFGH")
+        for i in 1...8 {
+            displayBoard.append("\(i)\(board[i-1].joined())")
+        }
+        displayBoard.append(" ABCDEFGH")
+        return displayBoard
     }
     
     func caculateScore() -> [Int] {
