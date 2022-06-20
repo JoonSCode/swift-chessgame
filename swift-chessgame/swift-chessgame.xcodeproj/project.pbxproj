@@ -16,6 +16,10 @@
 		55E3C7EB2860477600B6D426 /* swift_chessgameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3C7EA2860477600B6D426 /* swift_chessgameTests.swift */; };
 		55E3C7F52860477600B6D426 /* swift_chessgameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3C7F42860477600B6D426 /* swift_chessgameUITests.swift */; };
 		55E3C7F72860477600B6D426 /* swift_chessgameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3C7F62860477600B6D426 /* swift_chessgameUITestsLaunchTests.swift */; };
+		55E3C8052860533600B6D426 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3C8042860533600B6D426 /* ViewModel.swift */; };
+		55E3C807286053B600B6D426 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3C806286053B600B6D426 /* ChessBoard.swift */; };
+		55E3C80928605D4400B6D426 /* Pawn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3C80828605D4400B6D426 /* Pawn.swift */; };
+		55E3C80B28605DC600B6D426 /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E3C80A28605DC600B6D426 /* ColorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		55E3C7F02860477600B6D426 /* swift-chessgameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-chessgameUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E3C7F42860477600B6D426 /* swift_chessgameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_chessgameUITests.swift; sourceTree = "<group>"; };
 		55E3C7F62860477600B6D426 /* swift_chessgameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_chessgameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		55E3C8042860533600B6D426 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		55E3C806286053B600B6D426 /* ChessBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
+		55E3C80828605D4400B6D426 /* Pawn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pawn.swift; sourceTree = "<group>"; };
+		55E3C80A28605DC600B6D426 /* ColorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +107,12 @@
 		55E3C7D22860477400B6D426 /* swift-chessgame */ = {
 			isa = PBXGroup;
 			children = (
-				55E3C7D32860477400B6D426 /* AppDelegate.swift */,
-				55E3C7D52860477400B6D426 /* SceneDelegate.swift */,
+				55E3C803286051FD00B6D426 /* Common */,
 				55E3C7D72860477400B6D426 /* ViewController.swift */,
+				55E3C8042860533600B6D426 /* ViewModel.swift */,
+				55E3C806286053B600B6D426 /* ChessBoard.swift */,
+				55E3C80828605D4400B6D426 /* Pawn.swift */,
+				55E3C80A28605DC600B6D426 /* ColorModel.swift */,
 				55E3C7D92860477400B6D426 /* Main.storyboard */,
 				55E3C7DC2860477500B6D426 /* Assets.xcassets */,
 				55E3C7DE2860477500B6D426 /* LaunchScreen.storyboard */,
@@ -125,6 +136,15 @@
 				55E3C7F62860477600B6D426 /* swift_chessgameUITestsLaunchTests.swift */,
 			);
 			path = "swift-chessgameUITests";
+			sourceTree = "<group>";
+		};
+		55E3C803286051FD00B6D426 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				55E3C7D32860477400B6D426 /* AppDelegate.swift */,
+				55E3C7D52860477400B6D426 /* SceneDelegate.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +279,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				55E3C7D82860477400B6D426 /* ViewController.swift in Sources */,
+				55E3C80B28605DC600B6D426 /* ColorModel.swift in Sources */,
 				55E3C7D42860477400B6D426 /* AppDelegate.swift in Sources */,
+				55E3C8052860533600B6D426 /* ViewModel.swift in Sources */,
 				55E3C7D62860477400B6D426 /* SceneDelegate.swift in Sources */,
+				55E3C807286053B600B6D426 /* ChessBoard.swift in Sources */,
+				55E3C80928605D4400B6D426 /* Pawn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
