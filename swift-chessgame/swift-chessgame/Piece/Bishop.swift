@@ -17,7 +17,7 @@ final class Bishop: MovablePiece {
     }
     
     init(color: Color, position: Position) {
-        let possibleDirection: [Direction] = [.leftUp, .leftDown, .rightUp, .leftDown]
+        let possibleDirection: [Direction] = [.leftUp, .leftDown, .rightUp, .rightDown]
         super.init(color: color, score: 3, position: position, possibleDirection: possibleDirection)
     }
 }
