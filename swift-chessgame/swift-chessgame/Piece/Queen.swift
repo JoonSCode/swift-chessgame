@@ -7,12 +7,17 @@
 
 import Foundation
 
-final class Queen: Piece {
+final class Queen: MovablePiece {
     override var value: String {
         return color == .black ? "♛" : "♕"
     }
+
+    override class var initialFile: [Int] {
+        return [4]
+    }
     
-    init(color: Color) {
-        super.init(color: color, score: 9, move: .diagonal)
+    init(color: Color, position: Position) {
+        let possibleDirection: [Direction] = [.leftDown, .leftUp, .rightUp, .rightDown, .down, .up, .left, .right]
+        super.init(color: color, score: 9, position: position, possibleDirection: possibleDirection)
     }
 }

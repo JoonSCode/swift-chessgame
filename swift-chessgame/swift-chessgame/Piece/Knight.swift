@@ -7,12 +7,23 @@
 
 import Foundation
 
-final class Knight: Piece {
+final class Knight: MovablePiece {
     override var value: String {
         return color == .black ? "♞" : "♘"
     }
     
-    init(color: Color) {
-        super.init(color: color, score: 3, move: .straight)
+    override class var initialFile: [Int] {
+        return [1,6]
     }
+    
+    init(color: Color, position: Position) {
+        var possibleDirection: [Direction] = []
+        if color == .black {
+            possibleDirection.append(.down)
+        } else {
+            possibleDirection.append(.up)
+        }
+        super.init(color: color, score: 3, position: position, possibleDirection: possibleDirection)
+    }
+    
 }

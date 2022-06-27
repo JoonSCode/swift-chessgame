@@ -7,12 +7,32 @@
 
 import Foundation
 
-final class Pawn: Piece {
+final class Pawn: MovablePiece {
     override var value: String {
         return color == .black ? "♟" : "♙"
     }
     
-    init(color: Color) {
-        super.init(color: color, score: 1, move: .straight)
+    override class var initialFile: [Int] {
+        return [Int](0...7)
+    }
+    
+    override class func initialRank(color: Color) -> Int {
+        switch color {
+        case .black:
+            return 1
+        case .white:
+            return 6
+        }
+    }
+    
+    init(color: Color, position: Position) {
+        var possibleDirection: [Direction] = []
+        if color == .black {
+            possibleDirection.append(.down)
+        } else {
+            possibleDirection.append(.up)
+        }
+        
+        super.init(color: color, score: 1, position: position, possibleDirection: possibleDirection, movableCount: 1)
     }
 }

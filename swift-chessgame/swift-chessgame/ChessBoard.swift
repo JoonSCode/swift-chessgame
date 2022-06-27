@@ -8,39 +8,95 @@
 import Foundation
 
 final class ChessBoard {
-    private var board: [[String]] = []
+    private var board: [[Piece]] = []
     private var turn: Color = .white
     
     init() {
         refreshBoard()
     }
     
+    // MARK: Init
+    
     func refreshBoard() {
-        board = [[String]](repeating: [String](repeating: ".", count: 8), count: 8)
-        board[0] = [Luke(color: .black).value, Knight(color: .black).value, Bishop(color: .black).value, ".", Queen(color: .black).value, Bishop(color: .black).value, Knight(color: .black).value, Luke(color: .black).value]
-        board[1] = [String](repeating: Pawn(color: .black).value, count: 8)
-        
-        board[6] = [String](repeating: Pawn(color: .white).value, count: 8)
-        board[7] = [Luke(color: .white).value, Knight(color: .white).value, Bishop(color: .white).value, ".", Queen(color: .white).value, Bishop(color: .white).value, Knight(color: .white).value, Luke(color: .white).value]
+        initBoard()
+        initPiece(color: .black)
+        initPiece(color: .white)
     }
+    
+    private func initBoard() {
+        board = [[Piece]](repeating: [Piece](repeating: EmptyPiece(), count: 8), count: 8)
+    }
+    
+    private func initPiece(color: Color) {
+        for position in Luke.getInitialPositions(color: color) {
+            board[position.rank][position.file] = Luke(color: color, position: position)
+        }
+        
+        for position in Knight.getInitialPositions(color: color) {
+            board[position.rank][position.file] = Knight(color: color, position: position)
+        }
+        
+        for position in Bishop.getInitialPositions(color: color) {
+            board[position.rank][position.file] = Bishop(color: color, position: position)
+        }
+        
+        for position in Queen.getInitialPositions(color: color) {
+            board[position.rank][position.file] = Queen(color: color, position: position)
+        }
+        
+        for position in Pawn.getInitialPositions(color: color) {
+            board[position.rank][position.file] = Pawn(color: color, position: position)
+        }
+    }
+
+    func setBoard(board: [[Piece]]) {
+        self.board = board
+    }
+    
+    // MARK: Display
     
     func display() -> [String] {
         var displayBoard: [String] = []
         displayBoard.append(" ABCDEFGH")
         for i in 1...8 {
-            displayBoard.append("\(i)\(board[i-1].joined())")
+            let rowString = board[i-1].map({
+                $0.value
+            }).joined()
+            
+            displayBoard.append("\(i)\(rowString)")
         }
         displayBoard.append(" ABCDEFGH")
         return displayBoard
     }
     
+    // MARK: Score
+    
     func caculateScore() -> [Int] {
-        return [0,0]
+        return [getScore(color: .black), getScore(color: .white)]
     }
+    
+    private func getScore(color: Color) -> Int {
+        var count = 0
+        
+        board.forEach({ row in
+            let colorFilteredRow = row.filter({
+                $0.color == color
+            })
+            count += colorFilteredRow.reduce(0) { $0 + $1.score }
+        })
+        
+        return count
+    }
+    
+    // MARK: MoveUnit
     
     func moveUnit() -> Bool {
         var isCorrectMove: Bool = false
         
         return isCorrectMove
+    }
+    
+    func getMovablePlace(piece: Piece) -> [String] {
+        return []
     }
 }
