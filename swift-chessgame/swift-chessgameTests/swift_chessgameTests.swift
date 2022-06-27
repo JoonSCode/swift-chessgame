@@ -10,21 +10,38 @@ import XCTest
 
 class swift_chessgameTests: XCTestCase {
 
+    private var board: ChessBoard!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        board = ChessBoard()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        let board = ChessBoard()
-        board.display().forEach({
-            print($0)
-        })
-        XCTAssertTrue(true)
+    func testBoardInit() throws {
+        let resultAfterInit: [String] = [" ABCDEFGH",
+                                         "1♜♞♝.♛♝♞♜",
+                                         "2♟♟♟♟♟♟♟♟",
+                                         "3........",
+                                         "4........",
+                                         "5........",
+                                         "6........",
+                                         "7♙♙♙♙♙♙♙♙",
+                                         "8♖♘♗.♕♗♘♖",
+                                         " ABCDEFGH"]
+        
+        XCTAssertEqual(resultAfterInit, board.display())
     }
+    
+    func testScore() throws {
+        let initialScore: [Int] = [39,39]
+        
+        XCTAssertEqual(initialScore, board.caculateScore())
+    }
+    
+    
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

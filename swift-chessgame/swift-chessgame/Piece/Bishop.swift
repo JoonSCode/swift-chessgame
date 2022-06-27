@@ -7,12 +7,17 @@
 
 import Foundation
 
-final class Bishop: Piece {
+final class Bishop: MovablePiece {
     override var value: String {
         return color == .black ? "♝" : "♗"
     }
     
-    init(color: Color) {
-        super.init(color: color, score: 3, move: .diagonal)
+    override class var initialFile: [Int] {
+        return [2,5]
+    }
+    
+    init(color: Color, position: Position) {
+        let possibleDirection: [Direction] = [.leftUp, .leftDown, .rightUp, .leftDown]
+        super.init(color: color, score: 3, position: position, possibleDirection: possibleDirection)
     }
 }

@@ -7,12 +7,17 @@
 
 import Foundation
 
-final class Luke: Piece {
+final class Luke: MovablePiece {
     override var value: String {
         return color == .black ? "♜" : "♖"
     }
+
+    override class var initialFile: [Int] {
+        return [0,7]
+    }
     
-    init(color: Color) {
-        super.init(color: color, score: 5, move: .straight)
+    init(color: Color, position: Position) {
+        let possibleDirection: [Direction] = [.left, .right, .up, .down]
+        super.init(color: color, score: 5, position: position, possibleDirection: possibleDirection)
     }
 }
