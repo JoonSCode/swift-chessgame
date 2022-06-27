@@ -7,9 +7,16 @@
 
 import Foundation
 
-class Piece { // 생성 관련
+class Piece: Hashable {
+    private let id: UUID = UUID()
+    
+    // 생성 관련
     let color: Color
     let score: Int
+    
+    // TODO: Board가 [[Space]]를 가지고 Space가 Piece를 가지는 형태로 변경할 것
+    var isMovableLocation: Bool = false
+    
     var value: String {
         return ""
     }
@@ -31,6 +38,15 @@ class Piece { // 생성 관련
         return initialFile.map({ file in
             Position(rank: initialRank(color: color), file: file)
         })
+    }
+    
+    // Hashable
+    static func == (lhs: Piece, rhs: Piece) -> Bool {
+        return lhs.id == rhs.id && lhs.color == rhs.color && lhs.score == rhs.score
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     init(color: Color, score: Int) {
@@ -61,7 +77,7 @@ class MovablePiece: Piece, Movable { //이동관련
 
 final class EmptyPiece: Piece {
     override var value: String {
-        return "."
+        return ""
     }
     
     init() {

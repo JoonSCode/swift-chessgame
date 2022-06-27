@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Combine
 
 final class ChessBoard {
-    private var board: [[Piece]] = []
-    private var turn: Color = .white
+    @Published private(set) var board: [[Piece]] = []
+    private(set) var turn: Color = .white
     
     init() {
         refreshBoard()
@@ -24,7 +25,12 @@ final class ChessBoard {
     }
     
     private func initBoard() {
-        board = [[Piece]](repeating: [Piece](repeating: EmptyPiece(), count: 8), count: 8)
+        for _ in 0...7 {
+            let rank: [Piece] = (0...7).map({ _ in
+                EmptyPiece()
+            })
+            board.append(rank)
+        }
     }
     
     private func initPiece(color: Color) {
@@ -60,7 +66,7 @@ final class ChessBoard {
         displayBoard.append(" ABCDEFGH")
         for i in 1...8 {
             let rowString = board[i-1].map({
-                $0.value
+                return $0.value.isEmpty ? "." : $0.value
             }).joined()
             
             displayBoard.append("\(i)\(rowString)")
@@ -96,7 +102,10 @@ final class ChessBoard {
         return isCorrectMove
     }
     
-    func getMovablePlace(piece: Piece) -> [String] {
-        return []
+    func getMovablePositions(piece: MovablePiece) -> [Position] {
+        let movablePosition = piece.getMovablePositions().filter({
+            (board[$0.rank][$0.file] as? MovablePiece)?.color == piece.color
+        })
+        return movablePosition
     }
 }
