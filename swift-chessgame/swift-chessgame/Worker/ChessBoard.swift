@@ -88,10 +88,6 @@ final class ChessBoard {
     }
     
     func getMovablePositions(piece: Pieceable) -> [Position] {
-//        let movablePosition = piece.getMovablePositions().filter({
-//            (board[$0.rank][$0.file] as? MovablePiece)?.color == piece.color
-//        })
-//        return movablePosition
         return []
     }
 }
