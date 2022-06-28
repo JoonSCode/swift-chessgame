@@ -21,7 +21,7 @@ class ChessPieceCollectionViewCell: UICollectionViewCell {
     
     func configure(viewModel: ChessCellViewModel) {
         self.viewModel = viewModel
-        pieceLabel.text = viewModel.piece.value
+        pieceLabel.text = viewModel.piece?.shape
         layer.borderColor = viewModel.isMovableLocation ? UIColor.black.cgColor : UIColor.clear.cgColor
     }
 }

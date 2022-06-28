@@ -10,7 +10,7 @@ import Foundation
 struct SectionViewModel: Hashable {
     var cellViewModels: [ChessCellViewModel]
     
-    init(pieces: [Piece]) {
+    init(pieces: [Pieceable?]) {
         cellViewModels = pieces.map({
             ChessCellViewModel(isMovableLocation: false, piece: $0)
         })

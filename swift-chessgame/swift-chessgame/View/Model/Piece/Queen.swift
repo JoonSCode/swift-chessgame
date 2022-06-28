@@ -7,17 +7,28 @@
 
 import Foundation
 
-final class Queen: MovablePiece {
-    override var value: String {
+struct Queen: Pieceable {
+    var color: Color
+    let score: Int = 9
+    var shape: String {
         return color == .black ? "♛" : "♕"
     }
-
-    override class var initialFile: [Int] {
-        return [4]
+    
+    let movableCount: Int = 8
+    let possibleDirections: [Direction]
+    // MARK: Initializable
+    
+    static func initialPositions(color: Color) -> [Position] {
+        let rank: Int = color == .black ? 0 : 7
+        let files: [Int] = [4]
+        
+        return files.map({ file in
+            Position(rank: rank, file: file)
+        })
     }
     
-    init(color: Color, position: Position) {
-        let possibleDirection: [Direction] = [.leftDown, .leftUp, .rightUp, .rightDown, .down, .up, .left, .right]
-        super.init(color: color, score: 9, position: position, possibleDirection: possibleDirection)
+    init(color: Color) {
+        possibleDirections = [.leftDown, .leftUp, .rightUp, .rightDown, .down, .up, .left, .right]
+        self.color = color
     }
 }

@@ -24,13 +24,13 @@ final class MainViewModel {
     
     func didSelectCell(cellViewModel: ChessCellViewModel) {
         let piece = cellViewModel.piece
-        guard let movablePiece = piece as? MovablePiece
+        guard let movablePiece = piece
         else {
             error = .emptyPiece
             return
         }
         
-        guard chessBoard.turn == piece.color
+        guard chessBoard.turn == movablePiece.color
         else {
             error = .wrongColor
             return

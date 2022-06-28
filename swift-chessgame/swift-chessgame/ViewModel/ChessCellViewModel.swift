@@ -8,20 +8,21 @@
 import Foundation
 
 class ChessCellViewModel: Hashable {
+    var id = UUID()
     var isMovableLocation: Bool
-    var piece: Piece
+    var piece: Pieceable?
     
-    init(isMovableLocation: Bool, piece: Piece) {
+    init(isMovableLocation: Bool, piece: Pieceable?) {
         self.isMovableLocation = isMovableLocation
         self.piece = piece
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(piece)
+        hasher.combine(id)
         hasher.combine(isMovableLocation)
     }
     
     static func == (lhs: ChessCellViewModel, rhs: ChessCellViewModel) -> Bool {
-        return lhs.piece == rhs.piece && lhs.isMovableLocation == rhs.isMovableLocation
+        return lhs.id == rhs.id
     }
 }

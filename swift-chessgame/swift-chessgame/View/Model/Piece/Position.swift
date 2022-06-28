@@ -7,36 +7,6 @@
 
 import Foundation
 
-protocol Movable {
-    var position: Position { get }
-    var possibleDirection: [Direction] { get }
-    var maxRank: Int { get }
-    var maxFile: Int { get }
-    var movableCount: Int { get }
-}
-
-extension Movable {
-    func getMovablePositions() -> [Position] {
-        var movablePositions: [Position] = []
-        for direction in possibleDirection {
-            let offset = direction.offset
-            
-            for i in 1...movableCount {
-                let newPosition = Position(rank: position.rank + offset.rank * i, file: position.file + offset.file * i)
-                
-                guard isInBoundary(position: newPosition) else { break }
-                movablePositions.append(newPosition)
-            }
-        }
-        
-        return movablePositions
-    }
-    
-    func isInBoundary(position: Position) -> Bool {
-        return 0..<maxRank ~= position.rank && 0..<maxFile ~= position.file
-    }
-}
-
 struct Position: Hashable {
     let rank: Int
     let file: Int

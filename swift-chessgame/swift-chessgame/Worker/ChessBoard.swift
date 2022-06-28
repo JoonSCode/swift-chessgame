@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class ChessBoard {
-    @Published private(set) var board: [[Piece]] = []
+    @Published private(set) var board: [[Pieceable?]] = []
     private(set) var turn: Color = .white
     
     init() {
@@ -25,37 +25,21 @@ final class ChessBoard {
     }
     
     private func initBoard() {
-        for _ in 0...7 {
-            let rank: [Piece] = (0...7).map({ _ in
-                EmptyPiece()
-            })
-            board.append(rank)
-        }
+        board = [[Pieceable?]](repeating: [Pieceable?](repeating: nil, count: 8), count: 8)
     }
     
     private func initPiece(color: Color) {
-        for position in Luke.getInitialPositions(color: color) {
-            board[position.rank][position.file] = Luke(color: color, position: position)
-        }
-        
-        for position in Knight.getInitialPositions(color: color) {
-            board[position.rank][position.file] = Knight(color: color, position: position)
-        }
-        
-        for position in Bishop.getInitialPositions(color: color) {
-            board[position.rank][position.file] = Bishop(color: color, position: position)
-        }
-        
-        for position in Queen.getInitialPositions(color: color) {
-            board[position.rank][position.file] = Queen(color: color, position: position)
-        }
-        
-        for position in Pawn.getInitialPositions(color: color) {
-            board[position.rank][position.file] = Pawn(color: color, position: position)
-        }
+        let pieceTypes: [Pieceable.Type] = [Pawn.self, Rook.self, Knight.self, Bishop.self, Queen.self]
+        pieceTypes.forEach({ pieceType in
+            let initialPositions = pieceType.initialPositions(color: color)
+            
+            for position in initialPositions {
+                board[position.rank][position.file] = pieceType.init(color: color)
+            }
+        })
     }
 
-    func setBoard(board: [[Piece]]) {
+    func setBoard(board: [[Pieceable]]) {
         self.board = board
     }
     
@@ -66,7 +50,8 @@ final class ChessBoard {
         displayBoard.append(" ABCDEFGH")
         for i in 1...8 {
             let rowString = board[i-1].map({
-                return $0.value.isEmpty ? "." : $0.value
+                guard let piece = $0 else { return "."}
+                return piece.shape
             }).joined()
             
             displayBoard.append("\(i)\(rowString)")
@@ -85,10 +70,10 @@ final class ChessBoard {
         var count = 0
         
         board.forEach({ row in
-            let colorFilteredRow = row.filter({
-                $0.color == color
+            row.forEach({
+                guard let piecable = $0, piecable.color == color else { return }
+                count += piecable.score
             })
-            count += colorFilteredRow.reduce(0) { $0 + $1.score }
         })
         
         return count
@@ -102,10 +87,11 @@ final class ChessBoard {
         return isCorrectMove
     }
     
-    func getMovablePositions(piece: MovablePiece) -> [Position] {
-        let movablePosition = piece.getMovablePositions().filter({
-            (board[$0.rank][$0.file] as? MovablePiece)?.color == piece.color
-        })
-        return movablePosition
+    func getMovablePositions(piece: Pieceable) -> [Position] {
+//        let movablePosition = piece.getMovablePositions().filter({
+//            (board[$0.rank][$0.file] as? MovablePiece)?.color == piece.color
+//        })
+//        return movablePosition
+        return []
     }
 }

@@ -7,32 +7,28 @@
 
 import Foundation
 
-final class Pawn: MovablePiece {
-    override var value: String {
+struct Pawn: Pieceable {
+    var color: Color
+    let score: Int = 1
+    var shape: String {
         return color == .black ? "♟" : "♙"
     }
     
-    override class var initialFile: [Int] {
-        return [Int](0...7)
-    }
+    let movableCount: Int = 1
+    let possibleDirections: [Direction]
+    // MARK: Initializable
     
-    override class func initialRank(color: Color) -> Int {
-        switch color {
-        case .black:
-            return 1
-        case .white:
-            return 6
-        }
-    }
-    
-    init(color: Color, position: Position) {
-        var possibleDirection: [Direction] = []
-        if color == .black {
-            possibleDirection.append(.down)
-        } else {
-            possibleDirection.append(.up)
-        }
+    static func initialPositions(color: Color) -> [Position] {
+        let rank: Int = color == .black ? 1 : 6
+        let files: [Int] = [Int](0...7)
         
-        super.init(color: color, score: 1, position: position, possibleDirection: possibleDirection, movableCount: 1)
+        return files.map({ file in
+            Position(rank: rank, file: file)
+        })
+    }
+    
+    init(color: Color) {
+        possibleDirections = color == .black ? [.down] : [.up]
+        self.color = color
     }
 }
